@@ -73,7 +73,7 @@ namespace iCSharp.Kernel
             string[] StriptArguments = null;
             var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(CommandArguments, ScriptArguments);
             IInitializationServices _initializationServices = scriptServicesBuilder.InitializationServices;
-            IFileSystem _fileSystem = _initializationServices.GetFileSystem();
+            ScriptCs.Contracts.IFileSystem _fileSystem = _initializationServices.GetFileSystem();
 
             if (_fileSystem.PackagesFile == null)
             {
