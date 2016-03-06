@@ -32,7 +32,7 @@ namespace iCSharp.Kernel.ScriptEngine
             this.logger.Debug(string.Format("Executing: {0}", script));
             this.console.ClearAllInBuffer();
 
-            ScriptResult scriptResult = this.repl.Execute(script);
+            ScriptCs.Contracts.ScriptResult scriptResult = this.repl.Execute(script);
 
             ExecutionResult executionResult = new ExecutionResult()
             {
