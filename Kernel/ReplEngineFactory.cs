@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-//using Common.Logging;
+using Common.Logging;
 using iCSharp.Kernel.ScriptEngine;
 using ScriptCs;
 //using ScriptCs.Argument;
@@ -20,9 +20,9 @@ namespace iCSharp.Kernel
         private IReplEngine _replEngine;
         private Repl _repl;
         private MemoryBufferConsole _console;
-        private ILog _logger;
+        private Common.Logging.ILog _logger;
 
-        public ReplEngineFactory(ILog logger, string[] args)
+        public ReplEngineFactory(Common.Logging.ILog logger, string[] args)
         {
             this._logger = logger;
             this.args = args;
@@ -59,7 +59,7 @@ namespace iCSharp.Kernel
             }
         }
 
-        private ILog Logger
+        private Common.Logging.ILog Logger
         {
             get { return this._logger; }
         }
