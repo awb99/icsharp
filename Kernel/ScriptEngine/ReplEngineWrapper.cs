@@ -42,7 +42,7 @@ namespace iCSharp.Kernel.ScriptEngine
             return executionResult;
         }
 
-        private bool IsCompleteResult(ScriptResult scriptResult)
+        private bool IsCompleteResult( ScriptCs.Contracts.ScriptResult scriptResult)
         {
             return scriptResult.ReturnValue != null && !string.IsNullOrEmpty(scriptResult.ReturnValue.ToString());
         }
