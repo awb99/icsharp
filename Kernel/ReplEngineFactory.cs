@@ -67,8 +67,11 @@ namespace iCSharp.Kernel
         private Repl GetRepl(string[] args, out MemoryBufferConsole memoryBufferConsole)
         {
             SetProfile();
-            var arguments = ParseArguments(args);
-            var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(arguments.CommandArguments, arguments.ScriptArguments);
+            //var arguments = ParseArguments(args);
+            
+            string[]  CommandArguments = [];
+            string[] StriptArguments = [];
+            var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(CommandArguments, ScriptArguments);
             IInitializationServices _initializationServices = scriptServicesBuilder.InitializationServices;
             IFileSystem _fileSystem = _initializationServices.GetFileSystem();
 
