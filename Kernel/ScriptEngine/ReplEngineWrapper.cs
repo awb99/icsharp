@@ -9,7 +9,7 @@ using Common.Logging;
 using ScriptCs;
 using ScriptCs.Argument;
 using ScriptCs.Command;
-using ScriptCs.Contracts;
+//using ScriptCs.Contracts;
 using ScriptCs.Hosting;
 
 namespace iCSharp.Kernel.ScriptEngine
