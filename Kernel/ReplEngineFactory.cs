@@ -92,7 +92,7 @@ namespace iCSharp.Kernel
             
             ScriptCs.Contracts.IScriptLibraryComposer composer = null;
             
-            Repl repl = new Repl(ra, _fileSystem, scriptServices.Engine,
+            Repl repl = new Repl(args, _fileSystem, scriptServices.Engine,
                 scriptServices.ObjectSerializer, scriptServices.Logger, composer, memoryBufferConsole,
                 scriptServices.FilePreProcessor, scriptServices.ReplCommands);
 
