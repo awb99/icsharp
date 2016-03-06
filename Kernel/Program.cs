@@ -49,7 +49,7 @@ namespace iCSharp
 
         private static ConnectionInformation GetConnectionInformation(string filename)
         {
-            ILog logger = new ConsoleOutLogger("kernel.log", LogLevel.All, true, true, false, "yyyy/MM/dd HH:mm:ss:fff");
+           Common.Logging.ILog logger = new ConsoleOutLogger("kernel.log", LogLevel.All, true, true, false, "yyyy/MM/dd HH:mm:ss:fff");
 
             logger.Info(string.Format("Opening file {0}", filename));
             string fileContent = File.ReadAllText(@filename);
@@ -63,7 +63,7 @@ namespace iCSharp
 
         private static void PrintAllArgs(string[] args)
         {
-            ILog logger = new ConsoleOutLogger("kernel.log", LogLevel.All, true, true, false, "yyyy/MM/dd HH:mm:ss:fff");
+            Common.Logging.ILog logger = new ConsoleOutLogger("kernel.log", LogLevel.All, true, true, false, "yyyy/MM/dd HH:mm:ss:fff");
             logger.Debug("Hello2");
             foreach (string s in args)
             {
