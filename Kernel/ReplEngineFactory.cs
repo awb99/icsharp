@@ -90,7 +90,7 @@ namespace iCSharp.Kernel
             ScriptServices scriptServices = scriptServicesBuilder.Build();
             memoryBufferConsole = new MemoryBufferConsole();
             
-            ScriptCs.Contracts.IScriptLibraryComposer composer =  new NullScriptLibraryComposer (".");
+            ScriptCs.Contracts.IScriptLibraryComposer composer =  new NullScriptLibraryComposer (".",new  System.Text.StringBuilder() );
             
             Repl repl = new Repl(args, _fileSystem, scriptServices.Engine,
                 scriptServices.ObjectSerializer, scriptServices.Logger, composer, memoryBufferConsole,
