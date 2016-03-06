@@ -98,19 +98,19 @@ namespace iCSharp.Kernel
 
         }
 
-        private static ArgumentParseResult ParseArguments(string[] args)
-        {
-            var console = new ScriptConsole();
-            try
-            {
-                var parser = new ArgumentHandler(new ArgumentParser(console), new ConfigFileParser(console), new FileSystem());
-                return parser.Parse(args);
-            }
-            finally
-            {
-                console.Exit();
-            }
-        }
+        //private static ArgumentParseResult ParseArguments(string[] args)
+        //{
+        //    var console = new ScriptConsole();
+          //  try
+        //    {
+          //      var parser = new ArgumentHandler(new ArgumentParser(console), new ConfigFileParser(console), new FileSystem());
+            //    return parser.Parse(args);
+        //    }
+        //    finally
+        //    {
+          //      console.Exit();
+        //    }
+        //}
 
         private static void SetProfile()
         {
