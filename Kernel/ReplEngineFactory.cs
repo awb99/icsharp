@@ -69,8 +69,10 @@ namespace iCSharp.Kernel
             SetProfile();
             //var arguments = ParseArguments(args);
    
-            var pArgs = new PowerArgs  (args);
-            ScriptCs.Config config = ScriptCs.Config.Create (pArgs);
+           // var pArgs = new PowerArgs  (args);
+            
+            var ra = ScriptCsArgs.Parse(args);
+            ScriptCs.Config config = ScriptCs.Config.Create (ra);
             var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(config, args);
             IInitializationServices _initializationServices = scriptServicesBuilder.InitializationServices;
             ScriptCs.Contracts.IFileSystem _fileSystem = _initializationServices.GetFileSystem();
