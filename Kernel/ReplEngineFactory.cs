@@ -69,8 +69,8 @@ namespace iCSharp.Kernel
             SetProfile();
             //var arguments = ParseArguments(args);
             
-            string[]  CommandArguments = [];
-            string[] StriptArguments = [];
+            string[] CommandArguments = null;
+            string[] StriptArguments = null;
             var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(CommandArguments, ScriptArguments);
             IInitializationServices _initializationServices = scriptServicesBuilder.InitializationServices;
             IFileSystem _fileSystem = _initializationServices.GetFileSystem();
