@@ -89,7 +89,7 @@ namespace iCSharp.Kernel
 
             ScriptServices scriptServices = scriptServicesBuilder.Build();
             memoryBufferConsole = new MemoryBufferConsole();
-            Repl repl = new Repl(arguments.ScriptArguments, _fileSystem, scriptServices.Engine,
+            Repl repl = new Repl(ra, _fileSystem, scriptServices.Engine,
                 scriptServices.ObjectSerializer, scriptServices.Logger, memoryBufferConsole,
                 scriptServices.FilePreProcessor, scriptServices.ReplCommands);
 
