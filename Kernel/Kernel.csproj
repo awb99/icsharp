@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,12 +13,18 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -33,10 +39,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <BaseAddress>4194304</BaseAddress>
+    <Prefer32Bit>True</Prefer32Bit>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="NetMQ">
       <HintPath>..\packages\NetMQ.3.3.0.10\lib\net40\NetMQ.dll</HintPath>
@@ -44,6 +62,24 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="scriptcs">
+      <HintPath>..\libCSscript\scriptcs.exe</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Contracts">
+      <HintPath>..\libCSscript\ScriptCs.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Core">
+      <HintPath>..\libCSscript\ScriptCs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Engine.Mono">
+      <HintPath>..\libCSscript\ScriptCs.Engine.Mono.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Engine.Roslyn">
+      <HintPath>..\libCSscript\ScriptCs.Engine.Roslyn.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Hosting">
+      <HintPath>..\libCSscript\ScriptCs.Hosting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,30 +122,6 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{0330b333-d8b9-451e-b3b7-20daf7a2fcd4}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs.Contracts\ScriptCs.Contracts.csproj">
-      <Project>{6049e205-8b5f-4080-b023-70600e51fd64}</Project>
-      <Name>ScriptCs.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs.Core\ScriptCs.Core.csproj">
-      <Project>{e590e710-e159-48e6-a3e6-1a83d3fe732c}</Project>
-      <Name>ScriptCs.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs.Engine.Mono\ScriptCs.Engine.Mono.csproj">
-      <Project>{e4adcfee-ff3b-4ef5-8298-2b31f407f58b}</Project>
-      <Name>ScriptCs.Engine.Mono</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs.Engine.Roslyn\ScriptCs.Engine.Roslyn.csproj">
-      <Project>{e79ec231-e27d-4057-91c9-2d001a3a8c3b}</Project>
-      <Name>ScriptCs.Engine.Roslyn</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs.Hosting\ScriptCs.Hosting.csproj">
-      <Project>{9aef2d95-87fb-4829-b384-34bfe076d531}</Project>
-      <Name>ScriptCs.Hosting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\src\ScriptCs\ScriptCs.csproj">
-      <Project>{25080671-1a80-4041-b9c7-260578ff4849}</Project>
-      <Name>ScriptCs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{1dc4bcd0-8e6b-4657-ad7c-2e1e01e3eb34}</Project>
