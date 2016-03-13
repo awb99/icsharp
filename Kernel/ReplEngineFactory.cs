@@ -86,23 +86,30 @@ namespace iCSharp.Kernel
             {
                 throw new ArgumentException("The file system provided by the initialization services provided by the script services builder has a null package folder.");
             }
-
-            ScriptServices scriptServices = scriptServicesBuilder.Build();
+            
             memoryBufferConsole = new MemoryBufferConsole();
             
-            ScriptCs.Contracts.IScriptLibraryComposer composer =  new NullScriptLibraryComposer ();
+            ILogProvider logProvider=null;
             
-            Repl repl = new Repl(args, _fileSystem, scriptServices.Engine,
-                scriptServices.ObjectSerializer, scriptServices.Logger, composer, memoryBufferConsole,
-                scriptServices.FilePreProcessor, scriptServices.ReplCommands);
+            scriptServicesBuilder = new ScriptServicesBuilder (memoryBufferConsole,ILogProvider );
+            ScriptServices scriptServices = scriptServicesBuilder.Build();
+           
+            
+            return scriptServices.Repl;
+            
+           // ScriptCs.Contracts.IScriptLibraryComposer composer =  new NullScriptLibraryComposer ();
+            
+        //    Repl repl = new Repl(args, _fileSystem, scriptServices.Engine,
+          //      scriptServices.ObjectSerializer, scriptServices.Logger, composer, memoryBufferConsole,
+            //    scriptServices.FilePreProcessor, scriptServices.ReplCommands);
 
-            var workingDirectory = _fileSystem.CurrentDirectory;
-            var assemblies = scriptServices.AssemblyResolver.GetAssemblyPaths(workingDirectory);
-            var scriptPacks = scriptServices.ScriptPackResolver.GetPacks();
+        //    var workingDirectory = _fileSystem.CurrentDirectory;
+        //    var assemblies = scriptServices.AssemblyResolver.GetAssemblyPaths(workingDirectory);
+        //    var scriptPacks = scriptServices.ScriptPackResolver.GetPacks();
 
-            repl.Initialize(assemblies, scriptPacks, null);
+        //    repl.Initialize(assemblies, scriptPacks, null);
 
-            return repl;
+         //   return repl;
 
         }
 
