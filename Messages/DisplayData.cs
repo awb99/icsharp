@@ -1,6 +1,4 @@
-﻿
-
-namespace iCSharp.Messages
+﻿namespace iCSharp.Messages
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;

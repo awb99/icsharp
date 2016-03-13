@@ -4,12 +4,19 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+
+
 using Common.Logging;
 using iCSharp.Kernel.ScriptEngine;
 using ScriptCs;
 //using ScriptCs.Argument;
-//using ScriptCs.Contracts;
+using ScriptCs.Contracts;
 using ScriptCs.Hosting;
+using  ScriptCs.Engine.Mono;
+using  ScriptCs.Engine;
+
+using ScriptCs.Engine.Roslyn;
+using ScriptCs;
 
 namespace iCSharp.Kernel
 {
@@ -18,7 +25,7 @@ namespace iCSharp.Kernel
         private string[] args;
 
         private IReplEngine _replEngine;
-        private Repl _repl;
+        private ScriptCs.Repl _repl;
         private MemoryBufferConsole _console;
         private Common.Logging.ILog _logger;
 
@@ -46,7 +53,7 @@ namespace iCSharp.Kernel
             get { return this._console; }
         }
 
-        private Repl Repl
+        private ScriptCs.Repl Repl
         {
             get
             {
@@ -64,54 +71,40 @@ namespace iCSharp.Kernel
             get { return this._logger; }
         }
 
-        private Repl GetRepl(string[] args, out MemoryBufferConsole memoryBufferConsole)
+        private static ScriptCs.Repl CreateRepl (Common.Logging.ILog logger,IConsole console)
+		{
+			ObjectSerializer serializer = new ObjectSerializer ();
+
+			RoslynScriptEngine scriptEngine =new RoslynScriptEngine (new ScriptHostFactory (), logger);
+			var initializationServices = new InitializationServices(logger);
+			initializationServices.GetAppDomainAssemblyResolver().Initialize();
+			
+			var fileSystem = initializationServices.GetFileSystem();
+			string[] ScriptArgs = new string[0];
+			
+			FilePreProcessor filePreProcessor = new FilePreProcessor (fileSystem,logger, new List<ILineProcessor>());
+			var repl = new ScriptCs.Repl(ScriptArgs, fileSystem, scriptEngine, serializer, logger, console, filePreProcessor, new List<IReplCommand> ());
+
+			var workingDirectory = fileSystem.CurrentDirectory;
+			var assemblies = initializationServices.GetAssemblyResolver ();
+			// var assemblies = _assemblyResolver.GetAssemblyPaths(workingDirectory);
+			// initializationServices.GetModuleLoader();
+			// var scriptPacks = _scriptPackResolver.GetPacks();
+			string[] ass = new string[0];
+			
+			repl.Initialize(ass, new List<IScriptPack>(), ScriptArgs);
+			return repl;
+		}
+        
+        private ScriptCs.Repl GetRepl(string[] args, out MemoryBufferConsole console)
         {
             SetProfile();
-            //var arguments = ParseArguments(args);
-   
-           // var pArgs = new PowerArgs  (args);
-            
-            var ra = ScriptCsArgs.Parse(args);
-            ScriptCs.Config config = ScriptCs.Config.Create (ra);
-            var scriptServicesBuilder = ScriptServicesBuilderFactory.Create(config, args);
-            IInitializationServices _initializationServices = scriptServicesBuilder.InitializationServices;
-            ScriptCs.Contracts.IFileSystem _fileSystem = _initializationServices.GetFileSystem();
-
-            if (_fileSystem.PackagesFile == null)
-            {
-                throw new ArgumentException("The file system provided by the initialization services provided by the script services builder has a null packages file.");
-            }
-
-            if (_fileSystem.PackagesFolder == null)
-            {
-                throw new ArgumentException("The file system provided by the initialization services provided by the script services builder has a null package folder.");
-            }
-            
-            memoryBufferConsole = new MemoryBufferConsole();
-            
-            ILogProvider logProvider=null;
-            
-            scriptServicesBuilder = new ScriptServicesBuilder (memoryBufferConsole,ILogProvider );
-            ScriptServices scriptServices = scriptServicesBuilder.Build();
-           
-            
-            return scriptServices.Repl;
-            
-           // ScriptCs.Contracts.IScriptLibraryComposer composer =  new NullScriptLibraryComposer ();
-            
-        //    Repl repl = new Repl(args, _fileSystem, scriptServices.Engine,
-          //      scriptServices.ObjectSerializer, scriptServices.Logger, composer, memoryBufferConsole,
-            //    scriptServices.FilePreProcessor, scriptServices.ReplCommands);
-
-        //    var workingDirectory = _fileSystem.CurrentDirectory;
-        //    var assemblies = scriptServices.AssemblyResolver.GetAssemblyPaths(workingDirectory);
-        //    var scriptPacks = scriptServices.ScriptPackResolver.GetPacks();
-
-        //    repl.Initialize(assemblies, scriptPacks, null);
-
-         //   return repl;
-
+           	console = new MemoryBufferConsole ();
+           	return CreateRepl (_logger, console);
         }
+        
+        
+  
 
         //private static ArgumentParseResult ParseArguments(string[] args)
         //{

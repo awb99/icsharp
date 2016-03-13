@@ -17,10 +17,10 @@ namespace iCSharp.Kernel.ScriptEngine
     internal class ReplEngineWrapper : IReplEngine
     {
         private readonly ILog logger;
-        private readonly Repl repl;
+        private readonly ScriptCs.Repl repl;
         private readonly MemoryBufferConsole console;
 
-        public ReplEngineWrapper(ILog logger, Repl repl, MemoryBufferConsole console)
+        public ReplEngineWrapper(ILog logger, ScriptCs.Repl repl, MemoryBufferConsole console)
         {
             this.logger = logger;
             this.repl = repl;
@@ -32,7 +32,7 @@ namespace iCSharp.Kernel.ScriptEngine
             this.logger.Debug(string.Format("Executing: {0}", script));
             this.console.ClearAllInBuffer();
 
-            ScriptCs.Contracts.ScriptResult scriptResult = this.repl.Execute(script);
+            ScriptCs.Contracts.ScriptResult scriptResult = repl.Execute(script);
 
             ExecutionResult executionResult = new ExecutionResult()
             {
