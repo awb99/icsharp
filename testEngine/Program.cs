@@ -9,6 +9,7 @@ using ScriptCs.Command;
 using ScriptCs.Hosting;
 using ScriptCs.Contracts;
 using ScriptCs.Engine.Roslyn;
+using ScriptCs.Engine.Mono ;
 using ScriptCs;
 
 using iCSharp.Kernel;
@@ -23,7 +24,11 @@ namespace testEngine
 		{
 			ObjectSerializer serializer = new ObjectSerializer ();
 
-			RoslynScriptEngine scriptEngine =new RoslynScriptEngine (new ScriptHostFactory (), logger);
+			var shf = new ScriptHostFactory ();
+			
+			var  scriptEngine =new MonoScriptEngine (shf, logger);
+        			
+			//RoslynScriptEngine scriptEngine =new RoslynScriptEngine (, logger);
 			var initializationServices = new InitializationServices(logger);
 			initializationServices.GetAppDomainAssemblyResolver().Initialize();
 			

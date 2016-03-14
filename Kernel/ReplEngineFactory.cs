@@ -12,7 +12,7 @@ using ScriptCs;
 //using ScriptCs.Argument;
 using ScriptCs.Contracts;
 using ScriptCs.Hosting;
-using  ScriptCs.Engine.Mono;
+using ScriptCs.Engine.Mono ;
 using  ScriptCs.Engine;
 
 using ScriptCs.Engine.Roslyn;
@@ -74,12 +74,11 @@ namespace iCSharp.Kernel
         private static ScriptCs.Repl CreateRepl (Common.Logging.ILog logger,IConsole console)
 		{
 			ObjectSerializer serializer = new ObjectSerializer ();
-
 			
 			var shf = new ScriptHostFactory ();
-		
-			
-			RoslynScriptEngine scriptEngine =new RoslynScriptEngine (shf, logger);
+			var  scriptEngine =new MonoScriptEngine (shf, logger);
+        	
+			//RoslynScriptEngine scriptEngine =new RoslynScriptEngine (shf, logger);
 			var initializationServices = new InitializationServices(logger);
 			initializationServices.GetAppDomainAssemblyResolver().Initialize();
 			
