@@ -75,7 +75,11 @@ namespace iCSharp.Kernel
 		{
 			ObjectSerializer serializer = new ObjectSerializer ();
 
-			RoslynScriptEngine scriptEngine =new RoslynScriptEngine (new ScriptHostFactory (), logger);
+			
+			var shf = new ScriptHostFactory ();
+		
+			
+			RoslynScriptEngine scriptEngine =new RoslynScriptEngine (shf, logger);
 			var initializationServices = new InitializationServices(logger);
 			initializationServices.GetAppDomainAssemblyResolver().Initialize();
 			
